@@ -1,20 +1,27 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from "../../constants";
 
-import Breadcrumbs from '../Breadcrumbs';
-import Select from '../Select';
-import Spacer from '../Spacer';
-import ShoeSidebar from '../ShoeSidebar';
-import ShoeGrid from '../ShoeGrid';
+import Breadcrumbs from "../Breadcrumbs";
+import Select from "../Select";
+import Spacer from "../Spacer";
+import ShoeSidebar from "../ShoeSidebar";
+import ShoeGrid from "../ShoeGrid";
 
 const ShoeIndex = ({ sortId, setSortId }) => {
   return (
     <Wrapper>
       <MainColumn>
         <Header>
-          <Title>Running</Title>
+          <TitleWrapper>
+            <BreadcrumbsMobile>
+              <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+              <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+              <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
+            </BreadcrumbsMobile>
+            <Title>Running</Title>
+          </TitleWrapper>
           <Select
             label="Sort"
             value={sortId}
@@ -31,9 +38,7 @@ const ShoeIndex = ({ sortId, setSortId }) => {
         <Breadcrumbs>
           <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
           <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-          <Breadcrumbs.Crumb href="/sale/shoes">
-            Shoes
-          </Breadcrumbs.Crumb>
+          <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
         </Breadcrumbs>
         <Spacer size={42} />
         <ShoeSidebar />
@@ -51,6 +56,9 @@ const Wrapper = styled.div`
 
 const LeftColumn = styled.div`
   flex-basis: 248px;
+  @media ${QUERIES.tabletAndDown} {
+    display: none;
+  }
 `;
 
 const MainColumn = styled.div`
@@ -66,6 +74,13 @@ const Header = styled.header`
 const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: ${WEIGHTS.medium};
+`;
+
+const TitleWrapper = styled.div``;
+
+const BreadcrumbsMobile = styled(Breadcrumbs)`
+  position: absolute;
+  margin-top: -16px;
 `;
 
 export default ShoeIndex;
