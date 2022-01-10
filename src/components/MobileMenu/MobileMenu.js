@@ -52,7 +52,7 @@ const Content = styled(DialogContent)`
   padding: 32px;
   position: fixed;
   right: 0px;
-  width: 80%;
+  width: 300px;
 `;
 
 const CloseButton = styled(UnstyledButton)`
