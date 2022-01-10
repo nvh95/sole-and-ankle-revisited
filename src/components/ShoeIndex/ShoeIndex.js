@@ -9,37 +9,39 @@ import Spacer from "../Spacer";
 import ShoeSidebar from "../ShoeSidebar";
 import ShoeGrid from "../ShoeGrid";
 
+const ShoeBreadcrumbs = (props) => (
+  <Breadcrumbs {...props}>
+    <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+    <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+    <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
+  </Breadcrumbs>
+);
+
 const ShoeIndex = ({ sortId, setSortId }) => {
   return (
     <Wrapper>
       <MainColumn>
         <Header>
           <TitleWrapper>
-            <BreadcrumbsMobile>
-              <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-              <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-              <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
-            </BreadcrumbsMobile>
+            <ShoeBreadcrumbsBreadcrumbsMobile />
             <Title>Running</Title>
           </TitleWrapper>
-          <Select
-            label="Sort"
-            value={sortId}
-            onChange={(ev) => setSortId(ev.target.value)}
-          >
-            <option value="newest">Newest Releases</option>
-            <option value="price">Price</option>
-          </Select>
+          <SelectWrapper>
+            <Select
+              label="Sort"
+              value={sortId}
+              onChange={(ev) => setSortId(ev.target.value)}
+            >
+              <option value="newest">Newest Releases</option>
+              <option value="price">Price</option>
+            </Select>
+          </SelectWrapper>
         </Header>
         <Spacer size={32} />
         <ShoeGrid />
       </MainColumn>
       <LeftColumn>
-        <Breadcrumbs>
-          <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-          <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-          <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
-        </Breadcrumbs>
+        <ShoeBreadcrumbs />
         <Spacer size={42} />
         <ShoeSidebar />
       </LeftColumn>
@@ -78,7 +80,13 @@ const Title = styled.h2`
 
 const TitleWrapper = styled.div``;
 
-const BreadcrumbsMobile = styled(Breadcrumbs)`
+const SelectWrapper = styled.div`
+  @media ${QUERIES.phoneAndDown} {
+    display: none;
+  }
+`;
+
+const ShoeBreadcrumbsBreadcrumbsMobile = styled(ShoeBreadcrumbs)`
   position: absolute;
   margin-top: -16px;
 `;
