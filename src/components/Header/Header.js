@@ -6,9 +6,9 @@ import Logo from "../Logo";
 import SuperHeader from "../SuperHeader";
 import MobileMenu from "../MobileMenu";
 
-import mobileMenu from "assets/mobile-menu.svg";
-import search from "assets/search.svg";
-import shoppingBag from "assets/shopping-bag.svg";
+import UnstyledButton from "components/UnstyledButton";
+import Icon from "components/Icon";
+import VisuallyHidden from "components/VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -22,9 +22,9 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <Side>
+        <LogoWrapper>
           <Logo />
-        </Side>
+        </LogoWrapper>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -35,14 +35,18 @@ const Header = () => {
         </Nav>
         <DesktopSide />
         <MobileNav>
-          <Image src={shoppingBag} width={24} height={24}></Image>
-          <Image src={search} width={24} height={24}></Image>
-          <Image
-            src={mobileMenu}
-            width={24}
-            height={24}
-            onClick={() => setShowMobileMenu(true)}
-          ></Image>
+          <UnstyledButton>
+            <Icon id="shopping-bag" />
+            <VisuallyHidden>Open cart</VisuallyHidden>
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="search" />
+            <VisuallyHidden>Search</VisuallyHidden>
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="menu" onClick={() => setShowMobileMenu(true)} />
+            <VisuallyHidden>Open menu</VisuallyHidden>
+          </UnstyledButton>
         </MobileNav>
       </MainHeader>
 
@@ -61,6 +65,11 @@ const MainHeader = styled.div`
   height: 72px;
   border-bottom: 1px solid var(--color-gray-300);
   overflow: auto;
+
+  @media ${QUERIES.tabletAndDown} {
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const Nav = styled.nav`
@@ -80,11 +89,15 @@ const MobileNav = styled.nav`
   }
 `;
 
-const Side = styled.div`
+const LogoWrapper = styled.div`
   flex: 1;
+  @media ${QUERIES.tabletAndDown} {
+    flex: revert;
+  }
 `;
 
-const DesktopSide = styled(Side)`
+const DesktopSide = styled.div`
+  flex: 1;
   @media ${QUERIES.tabletAndDown} {
     display: none;
   }
@@ -100,10 +113,6 @@ const NavLink = styled.a`
   &:first-of-type {
     color: var(--color-secondary);
   }
-`;
-
-const Image = styled.img`
-  cursor: pointer;
 `;
 
 export default Header;
